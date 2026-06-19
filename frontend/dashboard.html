@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+</head>
+<body>
+
+    <h1>Student Management Dashboard</h1>
+
+    <h2 id="students">Total Students : 0</h2>
+
+    <h2 id="fees">Total Fee Collected : 0</h2>
+
+    <h3>Department Strength</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Department</th>
+                <th>Students</th>
+            </tr>
+        </thead>
+        <tbody id="deptTable">
+        </tbody>
+    </table>
+
+    <h3>Top Students</h3>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Average Marks</th>
+        </tr>
+    </thead>
+    <tbody id="topStudents"></tbody>
+</table>
+
+     <h3>Department Strength Chart</h3>
+     <canvas id="deptChart"></canvas>
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+
+        // Total Students
+        fetch("http://127.0.0.1:8000/dashboard/student-count")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("students").innerText =
+                "Total Students : " + data.total_students;
+        });
+
+        // Total Fee Collected
+        fetch("http://127.0.0.1:8000/dashboard/fee-summary")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("fees").innerText =
+                "Total Fee Collected : " + data.total_fee_collected;
+        });
+
+        // Department Strength
+       fetch("http://127.0.0.1:8000/dashboard/department-strength")
+        .then(response => response.json())
+        .then(data => {
+
+
+            let rows = "";
+
+           data.forEach(item => {
+    rows += `
+        <tr>
+            <td>${item.department_name}</td>
+            <td>${item.student_count}</td>
+        </tr>
+    `;
+});
+
+            document.getElementById("deptTable").innerHTML = rows;
+        });
+       
+
+fetch("http://127.0.0.1:8000/dashboard/department-strength")
+.then(response => response.json())
+.then(data => {
+
+    const labels = data.map(item => item.department_name);
+
+    const counts = data.map(item => item.student_count);
+
+    new Chart(
+        document.getElementById("deptChart"),
+        {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Students",
+                    data: counts
+                }]
+            }
+        }
+    );
+});
+
+// Top Students
+
+fetch("http://127.0.0.1:8000/dashboard/top-students")
+.then(response => response.json())
+.then(data => {
+
+    let rows = "";
+
+    data.forEach(item => {
+
+        rows += `
+            <tr>
+                <td>${item.student_name}</td>
+                <td>${item.average_marks}</td>
+            </tr>
+        `;
+
+    });
+
+    document.getElementById("topStudentsTable").innerHTML = rows;
+
+});
+    </script>
+
+
+<script>
+
+new Chart(
+    document.getElementById("deptChart"),
+    {
+        type: "bar",
+        data: {
+            labels: ["CS", "ECE"],
+            datasets: [{
+                label: "Students",
+                data: [20, 0]
+            }]
+        }
+    }
+);
+
+</script>
+
+</body>
+</html>
