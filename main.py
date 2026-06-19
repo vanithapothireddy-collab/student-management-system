@@ -38,3 +38,16 @@ def home():
     return {
         "message": "Student Management System Running"
     }
+@app.get("/db-test")
+def db_test():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT 'Oracle Connected' FROM dual")
+
+    result = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    return {"message": result[0]}
