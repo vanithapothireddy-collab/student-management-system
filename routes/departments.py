@@ -7,33 +7,38 @@ router = APIRouter(
     tags=["Departments"]
 )
 
+from fastapi import APIRouter
+from db import get_connection
+
+router = APIRouter(
+    prefix="/departments",
+    tags=["Departments"]
+)
+
 @router.get("/")
 def get_departments():
 
-    conn = get_connection()
-    cursor = conn.cursor()
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT department_id,
-               department_name
-        FROM departments
-        ORDER BY department_id
-    """)
+        cursor.execute("""
+            SELECT department_id,
+                   department_name
+            FROM departments
+            ORDER BY department_name
+        """)
 
-    rows = cursor.fetchall()
+        rows = cursor.fetchall()
 
-    result = []
+        cursor.close()
+        conn.close()
 
-    for row in rows:
-        result.append({
-            "department_id": row[0],
-            "department_name": row[1]
-        })
+        return rows
 
-    cursor.close()
-    conn.close()
-
-    return result
+    except Exception as e:
+        print("ERROR:", e)
+        raise
 @router.post("/")
 def create_department(department: DepartmentCreate):
 
