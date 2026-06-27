@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from db import get_connection
 from routes.students import router as student_router
 from routes.departments import router as department_router
 from routes.subjects import router as subject_router
