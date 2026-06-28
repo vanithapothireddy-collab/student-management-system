@@ -1,8 +1,9 @@
 import os
 import oracledb
 
-print("DB.PY LOADED")
-print("THIN MODE:", oracledb.is_thin_mode())
+print("DB_USER =", os.getenv("DB_USER"))
+print("DB_PASSWORD =", os.getenv("DB_PASSWORD"))
+print("DB_DSN =", os.getenv("DB_DSN"))
 
 def get_connection():
     return oracledb.connect(
