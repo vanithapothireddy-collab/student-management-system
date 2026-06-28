@@ -2,13 +2,7 @@ from fastapi import APIRouter, HTTPException
 from db import get_connection
 from models.department import DepartmentCreate
 from fastapi import status
-router = APIRouter(
-    prefix="/departments",
-    tags=["Departments"]
-)
-
-from fastapi import APIRouter
-from db import get_connection
+import traceback
 
 router = APIRouter(
     prefix="/departments",
@@ -17,7 +11,6 @@ router = APIRouter(
 
 @router.get("/")
 def get_departments():
-
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -37,8 +30,8 @@ def get_departments():
         return rows
 
     except Exception as e:
-        print("ERROR:", e)
-        raise
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
 @router.post("/")
 def create_department(department: DepartmentCreate):
 
