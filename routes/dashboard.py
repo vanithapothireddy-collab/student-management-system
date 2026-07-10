@@ -35,16 +35,43 @@ def dashboard():
 
     return rows
 
-
 @router.get("/student-count")
 def student_count():
+
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT COUNT(*)
+            FROM students
+        """)
+
+        count = cursor.fetchone()[0]
+
+        cursor.close()
+        conn.close()
+
+        return {
+            "total_students": count
+        }
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+
+        return {
+            "error": str(e)
+        }
+@router.get("/subject-count")
+def subject_count():
 
     conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
         SELECT COUNT(*)
-        FROM students
+        FROM subjects
     """)
 
     count = cursor.fetchone()[0]
@@ -53,10 +80,8 @@ def student_count():
     conn.close()
 
     return {
-        "total_students": count
+        "total_subjects": count
     }
-
-
 @router.get("/department-strength")
 def department_strength():
 
@@ -127,37 +152,6 @@ def management_dashboard(role: str = Header()):
 
     return rows
 
-@router.get("/top-students")
-def top_students():
-
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        SELECT
-            s.student_name,
-            ROUND(AVG(m.marks_obtained), 2) avg_marks
-        FROM students s
-        JOIN marks m
-            ON s.student_id = m.student_id
-        GROUP BY s.student_name
-        ORDER BY avg_marks DESC
-    """)
-
-    rows = cursor.fetchall()
-
-    result = []
-
-    for row in rows:
-        result.append({
-            "student_name": row[0],
-            "average_marks": row[1]
-        })
-
-    cursor.close()
-    conn.close()
-
-    return result
 @router.get("/test-db")
 def test_db():
     conn = get_connection()
@@ -243,3 +237,163 @@ def top_rankers():
     conn.close()
 
     return rows
+@router.get("/recent-students")
+def recent_students():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT *
+    FROM
+    (
+        SELECT
+            s.student_id,
+            s.student_name,
+            d.department_name
+        FROM students s
+        JOIN departments d
+            ON s.department_id = d.department_id
+        ORDER BY s.student_id DESC
+    )
+    WHERE ROWNUM <= 5
+""")
+
+    rows = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return rows
+@router.get("/department-count")
+def department_count():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM departments
+    """)
+
+    count = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return {
+        "total_departments": count
+    }
+@router.get("/department-wise-students")
+def department_wise_students():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT
+            d.department_name,
+            COUNT(s.student_id)
+        FROM departments d
+        LEFT JOIN students s
+            ON d.department_id = s.department_id
+        GROUP BY d.department_name
+        ORDER BY d.department_name
+    """)
+
+    rows = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return rows
+@router.get("/present-today")
+def present_today():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM attendance
+        WHERE attendance_date = TRUNC(SYSDATE)
+        AND status='Present'
+    """)
+
+    count = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return {
+        "present_today": count
+    }
+@router.get("/absent-today")
+def absent_today():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM attendance
+        WHERE attendance_date = TRUNC(SYSDATE)
+        AND status='Absent'
+    """)
+
+    count = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return {
+        "absent_today": count
+    }
+@router.get("/attendance-percentage")
+def attendance_percentage():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+
+        SELECT
+
+            ROUND(
+
+                SUM(
+
+                    CASE
+
+                        WHEN status='Present'
+
+                        THEN 1
+
+                        ELSE 0
+
+                    END
+
+                )
+
+                /
+
+                COUNT(*)*100,
+
+            2)
+
+        FROM attendance
+
+    """)
+
+    percentage = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return {
+
+        "attendance_percentage":
+
+        percentage if percentage else 0
+
+    }

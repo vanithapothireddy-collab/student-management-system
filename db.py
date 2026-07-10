@@ -1,13 +1,15 @@
-import os
 import oracledb
 
-print("DB_USER =", os.getenv("DB_USER"))
-print("DB_PASSWORD =", os.getenv("DB_PASSWORD"))
-print("DB_DSN =", os.getenv("DB_DSN"))
+oracledb.init_oracle_client(
+    lib_dir=r"C:\Users\Vanitha\Downloads\instantclient-basic-windows.x64-23.26.2.0.0 (1)\instantclient_23_0"
+)
+
+print("DB.PY LOADED")
+print("THIN MODE:", oracledb.is_thin_mode())
 
 def get_connection():
     return oracledb.connect(
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        dsn=os.getenv("DB_DSN")
+        user="VANITHA",
+        password="pass123",
+        dsn="localhost:1521/XE"
     )

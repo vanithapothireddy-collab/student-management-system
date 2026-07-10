@@ -1,20 +1,183 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Student Management System</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
 
-    <h1>Student Management System v2</h1>
+<div class="container">
 
-    <hr>
+    <!-- Sidebar -->
 
-    <a href="students.html">Students</a>
+    <div class="sidebar">
 
-    <br><br>
+        <h2>SMS</h2>
 
-    <a href="dashboard.html">Dashboard</a>
+        <a href="/">🏠 Dashboard</a>
+        <a href="/students.html">👨‍🎓 Students</a>
+        <a href="/departments.html">🏢 Departments</a>
+        <a href="/subjects.html">📚 Subjects</a>
+        <a href="/batches.html">🎓 Batches</a>
+        <a href="/attendance.html">📝 Attendance</a>
+        <a href="/exams.html">🧪 Exams</a>
+        <a href="/marks.html">📊 Marks</a>
+        <a href="/fees.html">💰 Fees</a>
+
+    </div>
+
+    <!-- Main -->
+
+    <div class="main">
+
+        <div class="navbar">
+
+            <h1>Student Management System</h1>
+
+            <span>Welcome, Admin 👋</span>
+
+        </div>
+
+        <div class="content">
+
+            <h2>Dashboard</h2>
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <h3>Total Students</h3>
+
+                    <h1 id="student-count">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Total Departments</h3>
+
+                    <h1 id="department-count">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Total Subjects</h3>
+
+                    <h1 id="subject-count">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Total Fees</h3>
+
+                    <h1 id="fee-count">₹0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Present Today</h3>
+
+                    <h1 id="present-count">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Absent Today</h3>
+
+                    <h1 id="absent-count">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Attendance</h3>
+
+                    <h1 id="attendance-percent">0%</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Top Rank</h3>
+
+                    <h1 id="top-rank">Student_20</h1>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <h2>Department-wise Students</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Department</th>
+
+                        <th>Students</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="departmentReport">
+
+                </tbody>
+
+            </table>
+
+            <br>
+
+            <h2>Recent Students</h2>
+
+            <table id="student-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Name</th>
+
+                        <th>Department</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="student-table-body">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/static/js/dashboard.js"></script>
 
 </body>
-</html>
 
+</html>

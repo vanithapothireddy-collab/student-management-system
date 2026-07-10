@@ -1,38 +1,238 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Students</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management System</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
 
-    <h2>Students List</h2>
+<div class="container">
 
-<input
-    type="text"
-    id="searchBox"
-    placeholder="Search Student"
-/>
+    <!-- Sidebar -->
+    <div class="sidebar">
 
-<button onclick="searchStudent()">
-    Search
-</button>
+        <h2>SMS</h2>
 
-    <table border="1">
+        <a href="/">🏠 Dashboard</a>
+        <a href="/students.html">👨‍🎓 Students</a>
+        <a href="/departments.html">🏢 Departments</a>
+        <a href="/subjects.html">📚 Subjects</a>
+        <a href="/attendance.html">📝 Attendance</a>
+        <a href="/exams.html">🧪 Exams</a>
+        <a href="/marks.html">📊 Marks</a>
+        <a href="/fees.html">💰 Fees</a>
 
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Gender</th>
-            </tr>
-        </thead>
+    </div>
 
-        <tbody id="studentTable">
-        </tbody>
+    <!-- Main -->
+    <div class="main">
 
-    </table>
+        <div class="navbar">
+            <h1>Student Management System</h1>
+        </div>
 
-    <script src="./js/students.js"></script>
+        <div class="content">
+
+            <h2>Students</h2>
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+
+    <input
+        type="text"
+        id="searchBox"
+        placeholder="Search Student">
+
+    <button onclick="searchStudent()">
+        Search
+    </button>
+
+    <button onclick="resetSearch()">
+        Reset
+    </button>
+
+    <button id="addStudentBtn">
+        + Add Student
+    </button>
+
+</div>
+
+            <br>
+
+            <!-- Advanced Search -->
+
+            <div class="search-panel">
+
+                <input
+                    id="searchName"
+                    placeholder="Student Name">
+
+                <input
+                    id="searchGender"
+                    placeholder="Gender">
+
+                <input
+                    id="searchDepartment"
+                    placeholder="Department">
+
+                <input
+                    id="searchBatch"
+                    placeholder="Batch">
+
+                <button onclick="advancedSearch()">
+                    Advanced Search
+                </button>
+
+                <button onclick="loadStudents()">
+                    Reset
+                </button>
+
+            </div>
+
+            <br>
+
+            <!-- Add Student Form -->
+
+            <div
+                id="studentForm"
+                style="display:none;"
+                class="card">
+
+                <h3>Add Student</h3>
+
+                <input
+                    type="text"
+                    id="student_name"
+                    placeholder="Student Name">
+
+                <br><br>
+
+                <select id="gender">
+
+                    <option value="M">Male</option>
+
+                    <option value="F">Female</option>
+
+                </select>
+
+                <br><br>
+
+                <select id="department_id">
+
+                    <option value="">
+                        Select Department
+                    </option>
+
+                </select>
+
+                <br><br>
+
+                <select id="batch_id">
+
+                    <option value="">
+                        Select Batch
+                    </option>
+
+                </select>
+
+                <br><br>
+
+                <button
+                    id="saveBtn"
+                    onclick="saveStudent()">
+
+                    Save Student
+
+                </button>
+
+            </div>
+
+            <br>
+
+            <!-- Students Table -->
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th onclick="sortStudents('student_id')">
+                            ID ▲▼
+                        </th>
+
+                        <th onclick="sortStudents('student_name')">
+                            Student ▲▼
+                        </th>
+
+                        <th onclick="sortStudents('gender')">
+                            Gender ▲▼
+                        </th>
+
+                        <th onclick="sortStudents('department_name')">
+                            Department ▲▼
+                        </th>
+
+                        <th onclick="sortStudents('batch_name')">
+                            Batch ▲▼
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="studentTable">
+
+                </tbody>
+
+            </table>
+
+            <br>
+
+            <!-- Pagination -->
+
+            <div class="pagination">
+
+                <button onclick="previousPage()">
+
+                    Previous
+
+                </button>
+
+                <span id="pageNumber">
+
+                    Page 1
+
+                </span>
+
+                <button onclick="nextPage()">
+
+                    Next
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/static/js/students.js"></script>
 
 </body>
+
 </html>

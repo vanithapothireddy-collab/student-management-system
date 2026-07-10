@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Exam Management</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+
+        <h2>SMS</h2>
+
+        <a href="/">🏠 Dashboard</a>
+        <a href="/students.html">👨‍🎓 Students</a>
+        <a href="/departments.html">🏢 Departments</a>
+        <a href="/subjects.html">📚 Subjects</a>
+        <a href="/batches.html">🎓 Batches</a>
+        <a href="/attendance.html">📝 Attendance</a>
+        <a href="/exams.html">🧪 Exams</a>
+        <a href="/marks.html">📊 Marks</a>
+        <a href="/fees.html">💰 Fees</a>
+        <a href="/reports.html">📈 Reports</a>
+
+    </div>
+
+    <!-- Main -->
+
+    <div class="main">
+
+        <div class="navbar">
+
+            <h1>Exam Management</h1>
+
+            <span>Welcome Admin 👋</span>
+
+        </div>
+
+        <div class="content">
+
+            <!-- Dashboard -->
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Total Exams</h3>
+                    <h1 id="total-exams">0</h1>
+                </div>
+
+                <div class="card">
+                    <h3>Upcoming Exams</h3>
+                    <h1 id="upcoming-exams">0</h1>
+                </div>
+
+                <div class="card">
+                    <h3>Completed Exams</h3>
+                    <h1 id="completed-exams">0</h1>
+                </div>
+
+                <div class="card">
+                    <h3>Subjects Covered</h3>
+                    <h1 id="subject-covered">0</h1>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <h2>Manage Exams</h2>
+
+            <input type="hidden" id="exam_id">
+
+            <label>Subject</label><br>
+
+            <select id="subject_id" required>
+                <option value="">Select Subject</option>
+            </select>
+
+            <br><br>
+
+            <label>Exam Name</label><br>
+
+            <input
+                type="text"
+                id="exam_name"
+                placeholder="Enter Exam Name"
+                required>
+
+            <br><br>
+
+            <label>Exam Date</label><br>
+
+            <input
+                type="date"
+                id="exam_date"
+                required>
+
+            <br><br>
+
+            <button onclick="saveExam()">💾 Save</button>
+
+            <button onclick="updateExam()">✏ Update</button>
+
+            <button onclick="clearForm()">🧹 Clear</button>
+
+            <button onclick="loadExams()">🔄 Refresh</button>
+
+            <hr>
+
+            <input
+                type="text"
+                id="searchExam"
+                placeholder="Search by Exam Name">
+
+            <button onclick="searchExam()">🔍 Search</button>
+
+            <br><br>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Subject</th>
+                        <th>Exam Name</th>
+                        <th>Exam Date</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="examTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/static/js/exams.js"></script>
+
+</body>
+
+</html>

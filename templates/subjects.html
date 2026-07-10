@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Subjects</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="sidebar">
+
+<h2>SMS</h2>
+
+<a href="/">🏠 Dashboard</a>
+<a href="/students.html">👨‍🎓 Students</a>
+<a href="/departments.html">🏢 Departments</a>
+<a href="/subjects.html">📚 Subjects</a>
+<a href="/attendance.html">📝 Attendance</a>
+<a href="/exams.html">🧪 Exams</a>
+<a href="/marks.html">📊 Marks</a>
+<a href="/fees.html">💰 Fees</a>
+
+</div>
+
+<div class="main">
+
+<div class="navbar">
+
+<h1>Subject Management</h1>
+
+</div>
+
+<div class="content">
+
+<h2>Subjects</h2>
+
+<div class="toolbar">
+
+<input
+type="text"
+id="searchBox"
+placeholder="Search Subject">
+
+<button onclick="searchSubject()">
+Search
+</button>
+
+<button id="addSubjectBtn">
++ Add Subject
+</button>
+
+</div>
+
+<div id="subjectForm" style="display:none;" class="card">
+
+<h3>Add Subject</h3>
+
+<input
+type="text"
+id="subject_name"
+placeholder="Subject Name">
+
+<button id="saveBtn">
+Save Subject
+</button>
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Subject Name</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="subjectTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="/static/js/subjects.js"></script>
+
+</body>
+
+</html>

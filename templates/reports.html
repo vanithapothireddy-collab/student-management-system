@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Reports</title>
+
+    <link rel="stylesheet"
+          href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+
+        <h2>SMS</h2>
+
+        <a href="/">🏠 Dashboard</a>
+        <a href="/students.html">👨‍🎓 Students</a>
+        <a href="/departments.html">🏢 Departments</a>
+        <a href="/subjects.html">📚 Subjects</a>
+        <a href="/batches.html">🎓 Batches</a>
+        <a href="/attendance.html">📝 Attendance</a>
+        <a href="/exams.html">🧪 Exams</a>
+        <a href="/marks.html">📊 Marks</a>
+        <a href="/fees.html">💰 Fees</a>
+        <a href="/reports.html">📈 Reports</a>
+
+    </div>
+
+    <!-- Main -->
+
+    <div class="main">
+
+        <div class="navbar">
+
+            <h1>Reports</h1>
+
+            <span>Welcome Admin 👋</span>
+
+        </div>
+
+        <div class="content">
+        <h1>REPORT TEST 12345</h1>
+            <div class="cards">
+
+                <div class="card">
+
+                    <h3>Total Students</h3>
+
+                    <h1 id="studentReportCount">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Total Departments</h3>
+
+                    <h1 id="departmentReportCount">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Attendance Records</h3>
+
+                    <h1 id="attendanceReportCount">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Fee Records</h3>
+
+                    <h1 id="feeReportCount">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Marks Records</h3>
+
+                    <h1 id="marksReportCount">0</h1>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <h2>Student Report</h2>
+<div style="margin-bottom:20px;">
+
+    <button onclick="exportStudents()">
+        📄 Export Student Report
+    </button>
+
+    <button onclick="exportDepartments()">
+        🏢 Export Department Report
+    </button>
+
+    <button onclick="exportAttendance()">
+        📝 Export Attendance Report
+    </button>
+
+    <button onclick="exportFees()">
+        💰 Export Fee Report
+    </button>
+
+    <button onclick="exportMarks()">
+        📊 Export Marks Report
+    </button>
+<br><br>
+
+<button onclick="printStudentReport()">
+    🖨 Print Student Report
+</button>
+
+<button onclick="printDepartmentReport()">
+    🖨 Print Department Report
+</button>
+
+<button onclick="printAttendanceReport()">
+    🖨 Print Attendance Report
+</button>
+
+<button onclick="printFeeReport()">
+    🖨 Print Fee Report
+</button>
+
+<button onclick="printMarksReport()">
+    🖨 Print Marks Report
+</button>
+<button onclick="downloadStudentExcel()">
+    📥 Student Excel
+</button>
+<button onclick="downloadStudentPDF()">
+    📄 Student PDF
+</button>
+
+</div>
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Batch</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="studentReportTable">
+
+                </tbody>
+
+            </table>
+<hr>
+
+<h2>Department Report</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Department</th>
+            <th>Total Students</th>
+        </tr>
+    </thead>
+    <tbody id="departmentReportTable"></tbody>
+</table>
+
+<hr>
+
+<h2>Attendance Report</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody id="attendanceReportTable"></tbody>
+</table>
+
+<hr>
+
+<h2>Fee Report</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Total Fee</th>
+            <th>Paid Fee</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody id="feeReportTable"></tbody>
+</table>
+
+<hr>
+
+<h2>Marks Report</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Exam</th>
+            <th>Marks</th>
+        </tr>
+    </thead>
+    <tbody id="marksReportTable"></tbody>
+</table>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/static/js/reports.js"></script>
+
+</body>
+
+</html>
