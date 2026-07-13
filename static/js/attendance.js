@@ -1,7 +1,7 @@
 // ----------------------------
 // Load Attendance
 // ----------------------------
-
+checkLogin();
 function loadAttendance() {
 
     fetch("/attendance/")

@@ -1,7 +1,7 @@
 // ----------------------
 // Load Marks
 // ----------------------
-
+checkLogin();
 function loadMarks() {
 
     fetch("/marks/")

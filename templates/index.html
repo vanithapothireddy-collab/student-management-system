@@ -19,35 +19,52 @@
 <div class="container">
 
     <!-- Sidebar -->
+<div class="sidebar">
 
-    <div class="sidebar">
+    <h2>SMS</h2>
 
-        <h2>SMS</h2>
+    <a href="/" id="dashboardMenu">🏠 Dashboard</a>
 
-        <a href="/">🏠 Dashboard</a>
-        <a href="/students.html">👨‍🎓 Students</a>
-        <a href="/departments.html">🏢 Departments</a>
-        <a href="/subjects.html">📚 Subjects</a>
-        <a href="/batches.html">🎓 Batches</a>
-        <a href="/attendance.html">📝 Attendance</a>
-        <a href="/exams.html">🧪 Exams</a>
-        <a href="/marks.html">📊 Marks</a>
-        <a href="/fees.html">💰 Fees</a>
+    <a href="/students.html" id="studentsMenu">👨‍🎓 Students</a>
 
-    </div>
+    <a href="/teachers.html" id="teachersMenu">👨‍🏫 Teachers</a>
+
+    <a href="/departments.html" id="departmentsMenu">🏢 Departments</a>
+
+    <a href="/subjects.html" id="subjectsMenu">📚 Subjects</a>
+
+    <a href="/batches.html" id="batchesMenu">🎓 Batches</a>
+
+    <a href="/attendance.html" id="attendanceMenu">📝 Attendance</a>
+
+    <a href="/exams.html" id="examsMenu">🧪 Exams</a>
+
+    <a href="/marks.html" id="marksMenu">📊 Marks</a>
+
+    <a href="/fees.html" id="feesMenu">💰 Fees</a>
+
+    <a href="/reports.html" id="reportsMenu">📈 Reports</a>
+
+</div>
 
     <!-- Main -->
 
     <div class="main">
+<div class="navbar">
 
-        <div class="navbar">
+    <h1>Student Management System</h1>
 
-            <h1>Student Management System</h1>
+    <div>
 
-            <span>Welcome, Admin 👋</span>
+        <span id="welcomeUser"></span>
 
-        </div>
+        <button onclick="logout()">
+            Logout
+        </button>
 
+    </div>
+
+</div>
         <div class="content">
 
             <h2>Dashboard</h2>
@@ -109,7 +126,10 @@
                     <h1 id="attendance-percent">0%</h1>
 
                 </div>
-
+                <div class="card">
+    <h3>Total Teachers</h3>
+    <h1 id="teacher-count">0</h1>
+</div>
                 <div class="card">
 
                     <h3>Top Rank</h3>
@@ -121,61 +141,67 @@
             </div>
 
             <br>
+<!-- Department Chart -->
 
-            <h2>Department-wise Students</h2>
 
-            <table>
 
-                <thead>
+<!-- Department Table -->
 
-                    <tr>
+<h2>Department-wise Students</h2>
 
-                        <th>Department</th>
+<table>
 
-                        <th>Students</th>
+    <thead>
 
-                    </tr>
+        <tr>
 
-                </thead>
+            <th>Department</th>
 
-                <tbody id="departmentReport">
+            <th>Students</th>
 
-                </tbody>
+        </tr>
 
-            </table>
+    </thead>
 
-            <br>
+    <tbody id="departmentReport">
 
-            <h2>Recent Students</h2>
+    </tbody>
 
-            <table id="student-table">
+</table>
 
-                <thead>
 
-                    <tr>
+<br>
+<h2>Recent Students</h2>
 
-                        <th>ID</th>
+<table id="student-table">
 
-                        <th>Name</th>
+    <thead>
 
-                        <th>Department</th>
+        <tr>
 
-                    </tr>
+            <th>ID</th>
 
-                </thead>
+            <th>Name</th>
 
-                <tbody id="student-table-body">
+            <th>Department</th>
 
-                </tbody>
+        </tr>
 
-            </table>
+    </thead>
+
+    <tbody id="student-table-body">
+
+    </tbody>
+
+</table>
 
         </div>
 
     </div>
 
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/js/auth.js"></script>
 <script src="/static/js/dashboard.js"></script>
 
 </body>

@@ -1,7 +1,7 @@
 // ================================
 // Load Dashboard Cards
 // ================================
-
+checkLogin();
 async function loadExamDashboard() {
 
     try {

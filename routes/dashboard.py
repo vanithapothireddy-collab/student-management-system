@@ -115,12 +115,13 @@ def department_strength():
     return result
 @router.get("/fee-summary")
 def fee_summary():
+
     conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT NVL(SUM(amount), 0)
-        FROM student_fees
+        SELECT NVL(SUM(paid_fee), 0)
+        FROM fees
     """)
 
     total_fee = cursor.fetchone()[0]
@@ -397,3 +398,146 @@ def attendance_percentage():
         percentage if percentage else 0
 
     }
+@router.get("/marks-count")
+def marks_count():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+
+        SELECT COUNT(*)
+
+        FROM marks
+
+    """)
+
+    total = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return {
+
+        "total_marks": total
+
+    }
+@router.get("/teacher-count")
+def teacher_count():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+
+        SELECT COUNT(*)
+
+        FROM teachers
+
+    """)
+
+    total = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return {
+
+        "total_teachers": total
+
+    }
+@router.get("/batch-count")
+def batch_count():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+
+        SELECT COUNT(*)
+
+        FROM batches
+
+    """)
+
+    total = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return {
+
+        "total_batches": total
+
+    }
+@router.get("/exam-count")
+def exam_count():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+
+        SELECT COUNT(*)
+
+        FROM exams
+
+    """)
+
+    total = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return {
+
+        "total_exams": total
+
+    }
+@router.get("/fee-chart")
+def fee_chart():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+
+        SELECT
+            s.student_name,
+            sf.amount
+        FROM student_fees sf
+        JOIN students s
+            ON sf.student_id = s.student_id
+        ORDER BY sf.student_id
+
+    """)
+
+    rows = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return rows
+@router.get("/attendance-chart")
+def attendance_chart():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+
+        SELECT
+            status,
+            COUNT(*)
+        FROM attendance
+        GROUP BY status
+        ORDER BY status
+
+    """)
+
+    rows = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return rows

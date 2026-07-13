@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Teacher Dashboard</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="sidebar">
+
+        <h2>SMS</h2>
+
+        <a href="/teacher-dashboard.html" id="dashboardMenu">🏠 Dashboard</a>
+
+        <a href="/attendance.html" id="attendanceMenu">📝 Attendance</a>
+
+        <a href="/marks.html" id="marksMenu">📊 Marks</a>
+
+        <a href="/teacher-subjects.html" id="subjectsMenu">📚 My Subjects</a>
+
+    </div>
+
+    <div class="main">
+
+        <div class="navbar">
+
+            <h1>Teacher Dashboard</h1>
+
+            <div>
+
+                <span id="welcomeUser"></span>
+
+                <button onclick="logout()">Logout</button>
+
+            </div>
+
+        </div>
+
+        <div class="content">
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <h3>Total Subjects</h3>
+
+                    <h1 id="teacherSubjectCount">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Total Students</h3>
+
+                    <h1 id="teacherStudentCount">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Attendance Today</h3>
+
+                    <h1 id="teacherAttendanceCount">0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Marks Entered</h3>
+
+                    <h1 id="teacherMarksCount">0</h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/static/js/auth.js"></script>
+<script src="/static/js/teacher-dashboard.js"></script>
+
+</body>
+
+</html>

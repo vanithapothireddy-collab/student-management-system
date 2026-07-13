@@ -1,109 +1,103 @@
+checkLogin();
+
 console.log("dashboard.js loaded");
+
+let departmentChart = null;
 
 async function loadDashboard() {
 
     try {
 
-        // Student Count
-        const studentResponse = await fetch("/dashboard/student-count");
-        const studentData = await studentResponse.json();
+        // Students
+        let response = await fetch("/dashboard/student-count");
+        let data = await response.json();
 
-        document.getElementById("student-count").innerText =
-            studentData.total_students;
+        document.getElementById("student-count").textContent =
+            data.total_students ?? 0;
 
-        // Department Count
-        const departmentResponse = await fetch("/dashboard/department-count");
-        const departmentData = await departmentResponse.json();
 
-        document.getElementById("department-count").innerText =
-            departmentData.total_departments;
+        // Departments
+        response = await fetch("/dashboard/department-count");
+        data = await response.json();
 
-        // Subject Count
-        const subjectResponse = await fetch("/dashboard/subject-count");
-        const subjectData = await subjectResponse.json();
+        document.getElementById("department-count").textContent =
+            data.total_departments ?? 0;
 
-        document.getElementById("subject-count").innerText =
-            subjectData.total_subjects;
 
-        // Fee Summary
-        const feeResponse = await fetch("/dashboard/fee-summary");
-        const feeData = await feeResponse.json();
+        // Teachers// 
+response = await fetch("/dashboard/teacher-count");
+data = await response.json();
 
-        document.getElementById("fee-count").innerText =
-            feeData.total_fee_collected;
+console.log("Teacher:", data);
+
+const teacherElement = document.getElementById("teacher-count");
+
+if (teacherElement) {
+    teacherElement.textContent = data.total_teachers ?? 0;
+}
+
+
+        // Subjects
+        response = await fetch("/dashboard/subject-count");
+        data = await response.json();
+
+        document.getElementById("subject-count").textContent =
+            data.total_subjects ?? 0;
+
+
+        // Fee Collection
+        response = await fetch("/dashboard/fee-summary");
+        data = await response.json();
+
+        document.getElementById("fee-count").textContent =
+            "₹" + Number(data.total_fee_collected ?? 0).toLocaleString("en-IN");
+
 
         // Present Today
-        const presentResponse = await fetch("/dashboard/present-today");
-        const presentData = await presentResponse.json();
+        response = await fetch("/dashboard/present-today");
+        data = await response.json();
 
-        document.getElementById("present-count").innerText =
-            presentData.present_today;
+        document.getElementById("present-count").textContent =
+            data.present_today ?? 0;
+
 
         // Absent Today
-        const absentResponse = await fetch("/dashboard/absent-today");
-        const absentData = await absentResponse.json();
+        response = await fetch("/dashboard/absent-today");
+        data = await response.json();
 
-        document.getElementById("absent-count").innerText =
-            absentData.absent_today;
+        document.getElementById("absent-count").textContent =
+            data.absent_today ?? 0;
+
 
         // Attendance Percentage
-        const attendanceResponse = await fetch("/dashboard/attendance-percentage");
-        const attendanceData = await attendanceResponse.json();
+        response = await fetch("/dashboard/attendance-percentage");
+        data = await response.json();
 
-        document.getElementById("attendance-percent").innerText =
-            attendanceData.attendance_percentage + "%";
-
-    }
-    catch (err) {
-
-        console.error("Dashboard Error:", err);
+        document.getElementById("attendance-percent").textContent =
+            (data.attendance_percentage ?? 0) + "%";
 
     }
+    catch (error) {
 
-}
-
-async function loadRecentStudents() {
-
-    try {
-
-        const response = await fetch("/dashboard/recent-students");
-
-        const students = await response.json();
-
-        const table = document.getElementById("student-table-body");
-
-        table.innerHTML = "";
-
-        students.forEach(student => {
-
-            table.innerHTML += `
-                <tr>
-                    <td>${student[0]}</td>
-                    <td>${student[1]}</td>
-                    <td>${student[2]}</td>
-                </tr>
-            `;
-
-        });
-
-    }
-    catch (err) {
-
-        console.error("Recent Students Error:", err);
+        console.error("Dashboard Error:", error);
 
     }
 
 }
+
 
 async function loadDepartmentReport() {
 
     try {
 
-        const response = await fetch("/dashboard/department-wise-students");
+        const response =
+            await fetch("/dashboard/department-wise-students");
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
-        const table = document.getElementById("departmentReport");
+        const table =
+            document.getElementById("departmentReport");
 
         table.innerHTML = "";
 
@@ -119,15 +113,177 @@ async function loadDepartmentReport() {
         });
 
     }
-    catch (err) {
+    catch (error) {
 
-        console.error("Department Report Error:", err);
+        console.error(error);
+
+    }
+
+}
+// ------------------------
+// Department Chart
+// ------------------------
+
+async function loadDepartmentChart() {
+
+    try {
+
+        const response =
+            await fetch("/dashboard/department-wise-students");
+
+        const data =
+            await response.json();
+
+        const labels = [];
+        const values = [];
+
+        data.forEach(row => {
+
+            labels.push(row[0]);
+            values.push(row[1]);
+
+        });
+
+        const canvas =
+            document.getElementById("departmentChart");
+
+        if (!canvas) return;
+
+        if (departmentChart) {
+            departmentChart.destroy();
+        }
+
+        departmentChart = new Chart(canvas, {
+
+            type: "bar",
+
+            data: {
+
+                labels: labels,
+
+                datasets: [{
+
+                    label: "Students",
+
+                    data: values,
+
+                    backgroundColor: "#2563eb"
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+
+                            precision: 0
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+    catch (error) {
+
+        console.error("Department Chart Error:", error);
 
     }
 
 }
 
+
+
+// ------------------------
+// Recent Students
+// ------------------------
+
+async function loadRecentStudents() {
+
+    try {
+
+        const response =
+            await fetch("/dashboard/recent-students");
+
+        const data =
+            await response.json();
+
+        const table =
+            document.getElementById("student-table-body");
+
+        table.innerHTML = "";
+
+        data.forEach(student => {
+
+            table.innerHTML += `
+                <tr>
+                    <td>${student[0]}</td>
+                    <td>${student[1]}</td>
+                    <td>${student[2]}</td>
+                </tr>
+            `;
+
+        });
+
+    }
+    catch (error) {
+
+        console.error("Recent Students Error:", error);
+
+    }
+
+}
+
+
+
+// ------------------------
+// Welcome User
+// ------------------------
+
+const username = localStorage.getItem("username");
+
+const welcomeUser =
+    document.getElementById("welcomeUser");
+
+if (welcomeUser) {
+
+    welcomeUser.textContent =
+        username
+            ? `Welcome ${username} 👋`
+            : "Welcome 👋";
+
+}
+
+
+
+// ------------------------
 // Initial Load
-loadDashboard();
-loadRecentStudents();
-loadDepartmentReport();
+// ------------------------
+
+window.onload = function () {
+
+    loadDashboard();
+
+    loadDepartmentReport();
+
+    loadDepartmentChart();
+
+    loadRecentStudents();
+
+};

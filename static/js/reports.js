@@ -1,3 +1,4 @@
+checkLogin();
 console.log("reports.js loaded");
 
 // --------------------------------------

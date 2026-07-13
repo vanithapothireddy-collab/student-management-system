@@ -3,7 +3,7 @@
 // students.js
 // Part 1
 // ==========================================
-
+checkLogin();
 let currentPage = 1;
 const pageSize = 10;
 

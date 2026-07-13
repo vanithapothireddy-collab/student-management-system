@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from db import get_connection
 
 from routes.students import router as student_router
 from routes.departments import router as department_router
@@ -14,6 +15,8 @@ from routes.attendance import router as attendance_router
 from routes.auth import router as auth_router
 from routes.batches import router as batch_router
 from routes.reports import router as reports_router
+from routes.teachers import router as teacher_router
+from routes.teacher_subjects import router as teacher_subject_router
 
 app = FastAPI(
     title="Student Management System",
@@ -44,12 +47,13 @@ app.include_router(attendance_router)
 app.include_router(auth_router)
 app.include_router(batch_router)
 app.include_router(reports_router)
+app.include_router(teacher_router)
+app.include_router(teacher_subject_router)
 
 # Home page
 @app.get("/")
 def home():
     return FileResponse("templates/index.html")
-from fastapi.responses import FileResponse
 
 @app.get("/students.html")
 def students_page():
@@ -108,3 +112,12 @@ def db_test():
 def login_page():
 
     return FileResponse("templates/login.html")
+@app.get("/teachers.html")
+def teachers_page():
+    return FileResponse("templates/teachers.html")
+@app.get("/teacher-subjects.html")
+def teacher_subject_page():
+    return FileResponse("templates/teacher_subjects.html")
+@app.get("/dashboard.html")
+def dashboard_page():
+    return FileResponse("templates/dashboard.html")

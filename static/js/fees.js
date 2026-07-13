@@ -1,3 +1,4 @@
+checkLogin();
 async function loadFees() {
 
     console.log("loadFees started");

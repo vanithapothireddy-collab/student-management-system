@@ -1,3 +1,4 @@
+checkLogin();
 function loadBatches() {
 
     fetch("/batches/")

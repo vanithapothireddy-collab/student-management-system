@@ -1,6 +1,7 @@
+
 async function login() {
 
-    const data = {
+    const body = {
 
         username: document.getElementById("username").value,
 
@@ -8,7 +9,7 @@ async function login() {
 
     };
 
-    const response = await fetch("/login", {
+    const response = await fetch("/auth/login", {
 
         method: "POST",
 
@@ -18,21 +19,38 @@ async function login() {
 
         },
 
-        body: JSON.stringify(data)
+        body: JSON.stringify(body)
 
     });
 
-    const result = await response.json();
+    if (!response.ok) {
 
-    if(result.message==="Login Successful"){
+        alert("Invalid Username or Password");
 
-        window.location="/";
+        return;
 
     }
 
-    else{
+    const user = await response.json();
 
-        document.getElementById("message").innerHTML=result.message;
+    localStorage.setItem("username", user.username);
+    localStorage.setItem("role", user.role);
+
+    if (user.role === "ADMIN") {
+
+        window.location = "/";
+
+    }
+
+    else if (user.role === "TEACHER") {
+
+        window.location = "/teacher-dashboard.html";
+
+    }
+
+    else {
+
+        window.location = "/student-dashboard.html";
 
     }
 

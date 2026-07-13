@@ -2,7 +2,7 @@
 // Subject Management System
 // subjects.js
 // ==========================================
-
+checkLogin();
 let currentPage = 1;
 const pageSize = 10;
 
